@@ -1,5 +1,5 @@
 export default class Validator {
-  /***
+  /**
    * constructor
    * @param {String} name - user name
    */
@@ -7,10 +7,13 @@ export default class Validator {
     this.name = name;
   }
 
+  /**
+   * @returns {string|onerror}
+   */
   validateUsername() {
-    if ((/([a-z]|-|[ ])/ig).test(this.name) && (/(^[ ]|[ ]&)/).test(this.name)) {
-      throw new TypeError('the name does not pass validation');
+    if ((/^[a-z\s-]+$/i).test(this.name) && !(/(^[\s])|([\s]$)/).test(this.name)) {
+      return 'name has been validated';
     }
-    return 'name has been validated';
+    throw new TypeError('the name does not pass validation');
   }
 }
